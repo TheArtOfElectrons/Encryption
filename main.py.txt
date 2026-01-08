@@ -1,1 +1,53 @@
-print("Hello World")
+def Ceasers_Cipher():
+    global cipher_text
+    text = input("Enter your text: ")
+    password = input("Enter the Cypher Key: ")
+
+    char_array = [ord(ch) for ch in password]
+    size_p = len(password)
+
+    cipher_array = []
+    a = 0
+    for ch in text:
+        val = ord(ch) + char_array[a]
+        cipher_array.append(val)
+        a += 1
+        if a >= size_p:
+            a = 0
+
+    cipher_text = "".join(f"{num:03}" for num in cipher_array)
+    print("Encrypted text:", cipher_text)
+
+
+def Decryption():
+    cipher_text = input("Enter your cypher text: ")
+    password = input("Enter Password: ")
+
+    char_array = [ord(ch) for ch in password]
+    size_p = len(password)
+
+    array = [int(cipher_text[i:i + 3]) for i in range(0, len(cipher_text), 3)]
+
+    plain_array = []
+    a = 0
+    for num in array:
+        plain_array.append(num - char_array[a])
+        a += 1
+        if a >= size_p:
+            a = 0
+
+    result = "".join(chr(num) for num in plain_array)
+    print("Decrypted text:", result)
+    return result
+
+
+print("Press 1 for Encryption"
+      " Press 2 for Decryption")
+Choice = int(input("Would you like to Encrypt your data or Decrypt it?"))
+
+if Choice == 2:
+    Decryption()
+else:
+    Ceasers_Cipher()
+
+
